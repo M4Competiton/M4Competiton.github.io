@@ -1,19 +1,36 @@
-<html>
-<head>
-<style>
-body{overflow: hidden;font-family: sans-serif; background-color: rgb(128, 128,0)}
-h3{font-family:sans-serif}
-#stats{width:50%;position:relative;left:60%;height:100%}
-h4{display:inline-block}
-object{overflow: hidden;}
-</style>  
+# Hier werden die Bibliotheken importiert
+from pyautogui import *
+import pyautogui
+import time
+import keyboard
+import random
+import win32api, win32con, win32gui
+from pyWinActivate import win_activate, win_wait_active
+from time import sleep
 
-</head>
-<nav>
-    <a href="/gamebot.html">Zurück <--</a>
-    </nav>  
-<body>
-<iframe style="position:absolute; left:8%" width="50%" height="100%" src="https://html5.gamedistribution.com/rvvASMiM/44fbc5e5c6e54ac9985d1c81f1fb8121/?timestamp=1647935405&countryCode=en&siteid=79&channelid=2&siteLocale=en&locale=en&gd_sdk_referrer_url=https%3A%2F%2Fwww.agame.com%2Fgame%2Fmagic-piano-tiles&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy5hZ2FtZS5jb20vZ2FtZS9tYWdpYy1waWFuby10aWxlcyIsInBhcmVudERvbWFpbiI6ImFnYW1lLmNvbSIsInRvcERvbWFpbiI6ImFnYW1lLmNvbSIsImhhc0ltcHJlc3Npb24iOnRydWUsImxvYWRlckVuYWJsZWQiOnRydWUsImhvc3QiOiJodG1sNS5nYW1lZGlzdHJpYnV0aW9uLmNvbSIsInZlcnNpb24iOiIxLjUuNCJ9">
-</iframe>
-</body>  
-</html>
+#Aktiviert das Fenster, anhand des Titel
+win_activate(window_title="Edge", partial_match=True)
+sleep(0.5)
+hwnd = win32gui.GetForegroundWindow()
+win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
+
+# Die nachfolgenden Zeilen definieren was beim Aufruf der Funktion "Click" passiert
+# Der Cursor geht auch die mitgegbene x-y Position und machen einen Mausklick
+def click(x,y): 
+      win32api.SetCursorPos((x,y)) 
+      win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0) 
+      time.sleep(0.03) #mimipause zwischen dem drücken und loslassen 
+      win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0) 
+      
+# Hier werden die viel Spalten nach den schwarzen Feldern geprüft
+# sobald schwarz detektiert wurde wird die Maus an dieser Position geklickt
+while keyboard.is_pressed ("q") == False: #wiederhole solange q nicht gedrückt ist 
+    if pyautogui.pixel (xxx, yyy) [2] == 0:   # [0]rd [1]gn [2]bl -> weil schwarz -> nur ein Wert  auf 0 prüfen 
+        click (xxx, yyy)  # entsprechende MausFunktion mit  X Y aufrufen 
+    if pyautogui.pixel (xxx, yyy) [2] == 0:    #dito wie oben für Spalte 2
+        click (xxx, yyy) 
+    if pyautogui.pixel (xxx, yyy) [2] == 0:    #dito wie oben für Spalte 3
+        click (xxx, yyy) 
+    if pyautogui.pixel (xxx, yyy) [2] == 0:    #dito wie oben für Spalte 4
+        click (xxx, yyy) 
+    
